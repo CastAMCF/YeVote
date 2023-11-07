@@ -44,15 +44,15 @@ public class BlockChain implements Serializable {
         //hash of previous block
         String prevHash = getLastBlockHash();
         //mining block
-        int nonce = Miner.getNonce(prevHash + data, dificulty);
-        /*
+        //int nonce = Miner.getNonce(prevHash + data, dificulty);
+        
         int nonce = 0;
 		try {
 			nonce = Miner.getNonce(prevHash + data, dificulty);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		*/
+		
         //build new block
         Block newBlock = new Block(prevHash, data, nonce);
         //add new block to the chain

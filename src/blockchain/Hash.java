@@ -1,7 +1,11 @@
 package blockchain;
 
+import java.security.MessageDigest;
+import java.util.Arrays;
+import java.util.Base64;
+
 public class Hash {
-	
+	/*
 	public static String toHexString(int n) {
         return Integer.toHexString(n).toUpperCase();
     }
@@ -9,8 +13,8 @@ public class Hash {
     public static String getHash(String data) {
         return toHexString(data.hashCode());
     }
-    
-	/*
+    */
+	
     public static String getHash(String data) {
     	byte[] h = null;
 		try {
@@ -31,5 +35,5 @@ public class Hash {
         byte[] trueHash = md.digest();
         return Arrays.equals(trueHash, hash);
     }
-    */
+    
 }

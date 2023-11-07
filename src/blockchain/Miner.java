@@ -1,36 +1,42 @@
 package blockchain;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Miner extends Thread {
-	/*
+	
 	//limit of nonce
     public static int MAX_NONCE = (int)1E9;
     
     int nonce, dificulty;
     String data;
     AtomicInteger ticket;
+    AtomicInteger solution;
 
-    public Miner(String data, int dificulty) {
-        this.ticket = new AtomicInteger(0);
+    public Miner(AtomicInteger ticket ,String data, int dificulty, AtomicInteger solution) {
+        this.ticket = ticket;
         this.data = data;
         this.dificulty = dificulty;
+        this.solution = solution;
     }
 
     @Override
     public void run() {
         String zeros = String.format("%0" + dificulty + "d", 0);
         //starting nonce
-        while ((nonce = ticket.getAndIncrement()) < MAX_NONCE) {
+        while (solution.get() == 0) {
+        	nonce = ticket.getAndIncrement();
             //calculate hash of block
             String hash = Hash.getHash(nonce + data);
             //Nounce found
             if (hash.startsWith(zeros)) {
-                interrupt();
-                return;
+            	solution.set(nonce);
             }
         }
     }
     
     public static int getNonce(String data, int dificulty) throws InterruptedException {
+    	AtomicInteger solution = new AtomicInteger(0);
+    	AtomicInteger ticket = new AtomicInteger(0);
         //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
         // 1 - criar um array de threads com o n. de processadores do computador
         int numberOfProcessors = Runtime.getRuntime().availableProcessors();
@@ -40,7 +46,7 @@ public class Miner extends Thread {
 
         for (int i = 0; i < threads.length; i++) {
             // 2.2 - criar as threads
-            threads[i] = new Miner(data, dificulty);
+            threads[i] = new Miner(ticket, data, dificulty, solution);
             // 2.3 - executar as threads
             threads[i].start();
         }
@@ -57,8 +63,8 @@ public class Miner extends Thread {
         //3 - Executar o calculo
         return nonce; //media do pi calculados pelas threads
     }
-    */
-	
+    
+	/*
 	//maximum number of Nonce
     public static int MAX_NONCE = (int)1E9;
 
@@ -81,5 +87,5 @@ public class Miner extends Thread {
         }
         return nonce;
     }
-    
+    */
 }
